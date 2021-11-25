@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="AkaScan.EddyCurrent.Core.Controls.SignalGradientView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:AkaScan.EddyCurrent.Core.ViewModels;assembly=AkaScan.EddyCurrent.Core"
+             xmlns:ui="clr-namespace:AkaScan.EddyCurrent.UI.Styles;assembly=AkaScan.EddyCurrent.UI"
+             xmlns:slider="clr-namespace:AkaScan.EddyCurrent.UI.Controls.Slider;assembly=AkaScan.EddyCurrent.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="80" 
+             d:DataContext="{d:DesignInstance viewModels:SignalGradientViewModel}">
+    <UserControl.Resources>
+        <Style x:Key="GradientSliderStyle"  TargetType="{x:Type Slider}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Slider}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <!--<ColumnDefinition Width="1*"/>-->
+                                <!--<ColumnDefinition/>-->
+                            </Grid.ColumnDefinitions>
+                            <slider:LabelTrackBar SnapsToDevicePixels="True" Placement="Left" OverridesDefaultStyle="True"/>
+                            <Track Grid.Column="0" Name="PART_Track" Orientation="Vertical" Opacity="50">
+                                <!--<Track.DecreaseRepeatButton>
+                                    <RepeatButton Style="{StaticResource SliderButtonStyle}" Command="Slider.DecreaseLarge" />
+                                </Track.DecreaseRepeatButton>-->
+                                <Track.Thumb>
+                                    <Thumb Background="GreenYellow" Height="14" Opacity="50" />
+                                </Track.Thumb>
+                                <!--
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Style="{StaticResource SliderButtonStyle}" Command="Slider.IncreaseLarge" /> 
+                                </Track.IncreaseRepeatButton>-->
+                            </Track>
+                            <!--<TickBar Name="BottomTick" SnapsToDevicePixels="True" Grid.Column="2" 
+                                     Fill="{TemplateBinding Foreground}" Placement="Right" Width="4" />-->
+
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid Margin="3">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ui:ExtendedSlider 
+            Style="{StaticResource GradientSliderStyle}"
+            Grid.Column="1" Orientation="Vertical"
+                Ticks="{Binding Ticks}"
+                AutoToolTipPlacement="TopLeft"
+                TickPlacement ="TopLeft"
+                AutoToolTipPrecision="1"
+                Maximum="{Binding MaxThresholdLevel}" 
+                Minimum="{Binding MinThresholdLevel}" 
+                Value="{Binding ThresholdLevel}">
+        </ui:ExtendedSlider>
+        <Rectangle Grid.Column="0">
+            <Rectangle.Fill>
+                <!-- 
+                    Точки градиента задаем из модели.
+                    Начало вверху: StartPoint="0,1" EndPoint = "0,0"
+                
+                -->
+                <LinearGradientBrush 
+                    GradientStops="{Binding GradientStops}"
+                    StartPoint="0,1" EndPoint="0,0">
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+    </Grid>
+</UserControl>

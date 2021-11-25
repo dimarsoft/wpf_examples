@@ -1,0 +1,61 @@
+﻿<Button x:Class="AkaScan.EddyCurrent.UI.Buttons.ParamViewerControl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:buttons="clr-namespace:AkaScan.EddyCurrent.UI.Buttons"
+        mc:Ignorable="d" 
+        d:DesignHeight="50" d:DesignWidth="100">
+    <Button.Template>
+        <ControlTemplate>
+            <Grid Background="{Binding Path=Background, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type buttons:ParamViewerControl}}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Rectangle Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Fill="Transparent" 
+                           Margin="5"
+                           StrokeThickness="2"  
+                           Stroke="{Binding Path=BorderColor, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type buttons:ParamViewerControl}}}" RadiusX="5" RadiusY="5">
+                </Rectangle>
+                <Border Grid.Column="1" Background="{Binding Path=Background, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type buttons:ParamViewerControl}}}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition>
+                                <RowDefinition.Style>
+                                    <Style TargetType="RowDefinition">
+                                        <Setter Property="Height" Value="*"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=HideValueText, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type buttons:ParamViewerControl}}}" Value="True">
+                                                <DataTrigger.Setters>
+                                                    <Setter Property="Height" Value="0"/>
+                                                </DataTrigger.Setters>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                     </Style>
+                                </RowDefinition.Style>
+                            </RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0" 
+                                   Margin="3"
+                                   Text="{Binding Path=CaptionText, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type buttons:ParamViewerControl}}}" 
+                                   Foreground="{Binding Path=CaptionTextColor, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=buttons:ParamViewerControl}}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="0" Grid.Row="1" 
+                                   Margin="3"
+                                   Text="{Binding Path=ValueText, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type buttons:ParamViewerControl}}}" 
+                                   Foreground="{Binding Path=ValueTextColor, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=buttons:ParamViewerControl}}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" />
+                    </Grid>
+                </Border>
+            </Grid>
+        </ControlTemplate>
+    </Button.Template>  
+</Button>
